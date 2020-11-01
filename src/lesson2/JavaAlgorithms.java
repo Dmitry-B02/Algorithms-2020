@@ -3,6 +3,8 @@ package lesson2;
 import kotlin.NotImplementedError;
 import kotlin.Pair;
 
+import java.util.ArrayList;
+
 @SuppressWarnings("unused")
 public class JavaAlgorithms {
     /**
@@ -97,8 +99,34 @@ public class JavaAlgorithms {
      * Если имеется несколько самых длинных общих подстрок одной длины,
      * вернуть ту из них, которая встречается раньше в строке first.
      */
+
+    // скорость O(i*j)
+    // память O(n)
+
     static public String longestCommonSubstring(String firs, String second) {
-        throw new NotImplementedError();
+        int horizontal = firs.length() + 1;
+        int vertical = second.length() + 1;
+        int max = 0;
+        int index = 0;
+        int[][] table = new int[horizontal][vertical];
+        for (int i = 1; i < horizontal; i++) {
+            for (int j = 1; j < vertical; j++) {
+                if (firs.charAt(i - 1) == second.charAt(j - 1)) {
+                    table[i][j] = table[i - 1][j - 1] + 1;
+                    if (table[i][j] > max) {
+                        max = table[i][j];
+                        index = i;
+                    }
+                }
+            }
+        }
+        StringBuilder output = new StringBuilder();
+        while (max > 0) {
+            output.append(firs.charAt(index - 1));
+            max--;
+            index--;
+        }
+        return output.reverse().toString();
     }
 
     /**
@@ -111,7 +139,24 @@ public class JavaAlgorithms {
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
      */
+
+    // скорость O(n ln ln n)
+    // память O(n)
+
     static public int calcPrimesNumber(int limit) {
-        throw new NotImplementedError();
+        if (limit < 2) return 0;
+        int count = 0;
+        boolean[] notPrime = new boolean[limit + 1];
+        notPrime[0] = true;
+        notPrime[1] = true;
+        for (int i = 2; i <= limit; i++) {
+            if (!notPrime[i]) {
+                count++;
+                for (int k = 2; k * i <= limit; k++) {
+                    notPrime[k * i] = true;
+                }
+            }
+        }
+        return count;
     }
 }
