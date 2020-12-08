@@ -174,6 +174,24 @@ abstract class AbstractOpenAddressingSetTest {
                 )
             }
             println("All clear!")
+            // --- Мои тесты. Просто добавляю в пустой testOpenAddressingSet 1 элемент, проверяю его наличие и удаляю его, сверив размер
+            val testOpenAddressingSet = create<String>(random.nextInt(6) + 4)
+            val testIterator = testOpenAddressingSet.iterator()
+            var string = random.nextString("abcdefgh12345678", 1, 15)
+            toRemove = string
+            testOpenAddressingSet += string
+            assertEquals(toRemove, testIterator.next())
+            testIterator.remove()
+            assertEquals(0, testOpenAddressingSet.size)
+            // Также проверю корректность работы метода remove(Object o) тут:
+            string = random.nextString("abcdefgh12345678", 1, 15)
+            testOpenAddressingSet += string
+            testOpenAddressingSet.remove(string)
+            assertEquals(0, testOpenAddressingSet.size)
+            assertFalse {
+                testOpenAddressingSet.remove(string) // удаляю элемент, которого нет
+            }
+            // ---
         }
     }
 }

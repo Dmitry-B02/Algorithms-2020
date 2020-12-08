@@ -42,7 +42,7 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     static public void sortTimes(String inputName, String outputName) {
-        File output = new File(outputName);
+        throw new NotImplementedError();
     }
 
     /**

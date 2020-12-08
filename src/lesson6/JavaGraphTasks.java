@@ -1,6 +1,7 @@
 package lesson6;
 
 import kotlin.NotImplementedError;
+import lesson6.impl.GraphBuilder;
 
 import java.util.List;
 import java.util.Set;
